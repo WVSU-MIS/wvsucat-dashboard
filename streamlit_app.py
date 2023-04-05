@@ -77,7 +77,6 @@ def app():
         
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
-    df_colleges
     
     #create the college column by merging the college courselist
     merged = pd.merge(df, df_colleges, on='First Priority', how='left')
