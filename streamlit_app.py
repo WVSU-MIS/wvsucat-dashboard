@@ -49,11 +49,7 @@ def show_result(df, course, passing_score):
     plot_result(df1, course)
 
 def show_summary(df, college, passing_score):
-    
-    # add a hew column Eligible/Not Eligible
-    # If the value in score is equal to or greater than tha passing_score
-    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')
-    
+        
     st.write('Distribution of Applicants by Priority Course')    
     course_counts = df['First Priority'].value_counts()
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
@@ -63,19 +59,6 @@ def show_summary(df, college, passing_score):
     st.write(res)
     st.write(pd.DataFrame(result))
     
-    for course in df['First Priority'].unique():
-        #filter the dataframe on the first priority
-        df1 = df[df['First Priority'] == course]
-
-        #count result per course
-        res_counts = df1['Result'].value_counts()
-        res_perc = res_counts.apply(lambda x: (x / res_counts.sum()).round(2) * 100)
-        result = pd.concat([res_counts, res_perc], axis=1)
-        result.columns = ['frequency', 'percentage']
-        res = 'Result for the course: ' + course
-        st.write(res)
-        st.write(pd.DataFrame(result))
-        
 def plot_result(df1, course):
     scounts=df1['Result'].value_counts()
     labels = list(scounts.index)
