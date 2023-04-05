@@ -68,7 +68,7 @@ def show_summary(df, college, passing_score):
     st.write(pd.DataFrame(result))
     
     course_counts = df['First Priority'].value_counts()
-    course_perc = course_counts.apply(lambda x: (x / course_counts.sum()) * 100)
+    course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
     result = pd.concat([course_counts, course_perc], axis=1)
     result.columns = ['frequency', 'percentage']
     res = 'Result for the college: ' + college
@@ -119,7 +119,10 @@ def app():
     else:
         year = selected_option
         df = filterByYear(df, year)
-        
+    
+    st.write("Set the passing score")
+    
+    passing_score = st.slider("Passing Score", 50, 160, 80, 10)
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
     
@@ -149,7 +152,12 @@ def app():
     options = ['All']
     for course in list(df['First Priority'].unique()):
         options.append(course)
+    
+    if st.button('Show College Summary'):  
+        df = filterByCollege(df_copy, college)
+        show_summary(df, college, passing_score)
         
+    #Select the course
     selected_option = st.selectbox('Select the course', options)
     if selected_option=='All':
         #filter again in case the user started over
@@ -158,14 +166,9 @@ def app():
         course = selected_option
         df = filterByCourse(df, course)
         
-    passing_score = st.slider("Passing Score", 50, 160, 80)
     if st.button('Show WVSUCAT Report'):  
         for course in df['First Priority'].unique():
             show_result(df, course, passing_score)
-    
-    if st.button('Show College Summary'):  
-        df = filterByCollege(df_copy, college)
-        show_summary(df, college, passing_score)
 
 #run the app
 if __name__ == "__main__":
