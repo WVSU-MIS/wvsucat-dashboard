@@ -82,7 +82,7 @@ def app():
     #load the data from file
     df = loadcsvfile()
     
-    st.subheader("Licensure Examination Results")
+    st.subheader("WVSUCAT Examination Results")
     year = '2018'
     options = df['Year'].unique()
     selected_option = st.selectbox('Select the year', options)
