@@ -43,6 +43,8 @@ def show_result(df, course, passing_score):
     result = pd.concat([df1['Result'].value_counts(), value_counts], axis=1)
     result.columns = ['Counts', 'Percentage']
     print('\n\n\nResult for the course ' + course)
+    res = 'Result for the course: ' + course
+    st.write(res)
     st.write(pd.DataFrame(result))
 
 
