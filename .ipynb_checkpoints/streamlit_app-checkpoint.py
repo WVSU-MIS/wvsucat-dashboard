@@ -65,10 +65,10 @@ def show_summary(df, college, passing_score):
     
     for course in df['First Priority']:
         #filter the dataframe on the first priority
-        df = df[df['First Priority'] == course]
+        df1 = df[df['First Priority'] == course]
 
         #count result per course
-        res_counts = df['Result'].value_counts()
+        res_counts = df1['Result'].value_counts()
         res_perc = res_counts.apply(lambda x: (x / res_counts.sum()).round(2) * 100)
         result = pd.concat([res_counts, res_perc], axis=1)
         result.columns = ['frequency', 'percentage']
