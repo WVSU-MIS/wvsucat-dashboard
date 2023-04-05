@@ -113,6 +113,7 @@ def app():
     passing_score = st.slider("Passing Score", 50, 160, 80)
     if st.button('Show Licensure Exam Report'):  
         for course in df['First Priority'].unique():
+            st.write(course)
             show_result(df, course, passing_score)
         
 #run the app
