@@ -48,6 +48,25 @@ def show_result(df, course, passing_score):
     st.write(pd.DataFrame(result))
     plot_result(df1, course)
 
+def show_summary(df, college, passing_score):
+    
+    # add a hew column Eligible/Not Eligible
+    # If the value in score is equal to or greater than tha passing_score
+    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')
+    
+    # get value counts and percentages of unique values in the column 
+    value_counts = df['Result'].value_counts(normalize=True)
+    value_counts = value_counts.mul(100).round(2).astype(str) + '%'
+    value_counts.name = 'Percentage'
+
+    # combine counts and percentages into a dataframe
+    result = pd.concat([df['Result'].value_counts(), value_counts], axis=1)
+    result.columns = ['Counts', 'Percentage']
+    print('\n\n\nResult for the course ' + course)
+    res = 'Result for the college: ' + college
+    st.write(res)
+    st.write(pd.DataFrame(result))
+    
 def plot_result(df1, course):
     scounts=df1['Result'].value_counts()
     labels = list(scounts.index)
@@ -81,6 +100,7 @@ def app():
 
     #load the data from file
     df = loadcsvfile()
+    df_copy = df
     
     st.subheader("WVSUCAT Examination Results")
     year = '2018'
@@ -129,10 +149,14 @@ def app():
         df = filterByCourse(df, course)
         
     passing_score = st.slider("Passing Score", 50, 160, 80)
-    if st.button('Show Licensure Exam Report'):  
+    if st.button('Show WVSUCAT Report'):  
         for course in df['First Priority'].unique():
             show_result(df, course, passing_score)
-        
+    
+    if st.button('Show College Summary'):  
+        df = filterByCollege(df_copy, college)
+        show_summary(df, course, passing_score)
+
 #run the app
 if __name__ == "__main__":
     app()
