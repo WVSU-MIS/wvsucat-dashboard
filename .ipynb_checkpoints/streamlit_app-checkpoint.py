@@ -62,7 +62,7 @@ def show_summary(df, college, passing_score):
     # combine counts and percentages into a dataframe
     result = pd.concat([df['Result'].value_counts(), value_counts], axis=1)
     result.columns = ['Counts', 'Percentage']
-    print('\n\n\nResult for the course ' + course)
+    print('\n\n\nResult for the college ' + college)
     res = 'Result for the college: ' + college
     st.write(res)
     st.write(pd.DataFrame(result))
