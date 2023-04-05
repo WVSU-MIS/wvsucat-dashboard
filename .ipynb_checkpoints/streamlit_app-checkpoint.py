@@ -29,7 +29,7 @@ def filterByYear(df, year):
 def show_result(df, course, passing_score):
     # add a hew column Eligible/Not Eligible
     # If the value in score is equal to or greater than tha passing_score
-    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if x >= int(passing_score) else 'Not Eligible')
+    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')
     
     for course in df['First Priority'].unique():
         #filter the dataframe on the first priority
