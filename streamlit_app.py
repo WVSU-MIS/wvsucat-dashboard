@@ -92,6 +92,7 @@ def app():
     selected_option = st.selectbox('Select the college', options)
     if selected_option=='CAS':
         #filter again in case the user started over
+        college = selected_option
         df = filterByYear(df, year)
     else:
         college = selected_option
@@ -110,7 +111,7 @@ def app():
         df = filterByCourse(df, course)
     
     if st.button('Show Licensure Exam Report'):  
-        for course in df['Course'].unique():
+        for course in df['First Priority'].unique():
             show_result(df, course)
         
 #run the app
