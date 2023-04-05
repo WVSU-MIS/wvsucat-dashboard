@@ -31,11 +31,10 @@ def show_result(df, course, passing_score):
     # add a hew column Eligible/Not Eligible
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')
-    df
     
     #filter the dataframe on the first priority
     df1 = df[df['First Priority'] == course]
-
+    df1
     # get value counts and percentages of unique values in the column 
     value_counts = df1['Result'].value_counts(normalize=True)
     value_counts = value_counts.mul(100).round(2).astype(str) + '%'
