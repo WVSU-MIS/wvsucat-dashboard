@@ -46,8 +46,25 @@ def show_result(df, course, passing_score):
     res = 'Result for the course: ' + course
     st.write(res)
     st.write(pd.DataFrame(result))
+    plot_result(df1, course)
 
+def plot_result(df1, course):
+    scounts=df1['Result'].value_counts()
+    labels = list(scounts.index)
+    sizes = list(scounts.values)
+    custom_colours = ['#ff7675', '#74b9ff']
 
+    fig = plt.figure(figsize=(8, 3))
+
+    plt.subplot(1, 2, 1)
+    plt.pie(sizes, labels = labels, textprops={'fontsize': 10}, startangle=90, 
+        autopct='%1.0f%%', colors=custom_colours)
+    plt.subplot(1, 2, 2)
+    p = sns.barplot(x = scounts.index, y = scounts.values, palette= 'viridis')
+    _ = plt.setp(p.get_xticklabels(), rotation=90)
+    plt.title('Results for the course ' + course)
+    st.pyplot(fig)
+    
 def loadcsvfile():
     csvfile = 'wvsucat.csv'
     df = pd.read_csv(csvfile, dtype='str', header=0, sep = ",", encoding='latin') 
