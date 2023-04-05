@@ -6,125 +6,113 @@ import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
-from scipy.stats import chi2_contingency
 from PIL import Image
 
-def filterBy(df, campus):
+def filterByCourse(df, course):
+    if course=='All':
+        return df
+    else:  
+        filtered_df = df[df['Course'] == course]  
+        return filtered_df
+
+def filterByCollege(df, campus):
     if campus=='All':
         return df
     else:  
-        filtered_df = df[df['Campus'] == campus]  
+        filtered_df = df[df['College'] == college]  
         return filtered_df
 
-def loadcsvfile(campus):
-    csvfile = 'employability-2017.csv'
+def filterByYear(df, year): 
+    filtered_df = df[df['Year'] == year]  
+    return filtered_df
+
+def show_result(df, course):
+    # add a hew column Eligible/Not Eligible
+    # If the value in score is equal to or greater than tha passing_score
+    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if x >= passing_score else 'Not Eligible')
+    
+    for course in df['First Priority'].unique():
+        #filter the dataframe on the first priority
+        df1 = df[df['First Priority'] == course]
+
+        # get value counts and percentages of unique values in the column 
+        value_counts = df1['Result'].value_counts(normalize=True)
+        value_counts = value_counts.mul(100).round(2).astype(str) + '%'
+        value_counts.name = 'Percentage'
+
+        # combine counts and percentages into a dataframe
+        result = pd.concat([df1['Result'].value_counts(), value_counts], axis=1)
+        result.columns = ['Counts', 'Percentage']
+        print('\n\n\nResult for the course ' + course)
+        result = pd.DataFrame(result)
+        print(result)
+
+def loadcsvfile():
+    csvfile = 'wvsucat.csv'
     df = pd.read_csv(csvfile, dtype='str', header=0, sep = ",", encoding='latin') 
     return df
 
-def createPlots(df, columnName):
-    st.write('Graduate Distribution by ' + columnName)
-    scounts=df[columnName].value_counts()
-    labels = list(scounts.index)
-    sizes = list(scounts.values)
-    custom_colours = ['#ff7675', '#74b9ff']
-    fig = plt.figure(figsize=(12, 4))
-    plt.subplot(1, 2, 1)
-    plt.pie(sizes, labels = labels, textprops={'fontsize': 10}, startangle=140, autopct='%1.0f%%', colors=custom_colours)
-    plt.subplot(1, 2, 2)
-    sns.barplot(x = scounts.index, y = scounts.values, palette= 'viridis')
-    st.pyplot(fig)
-
-    # get value counts and percentages of unique values in column 
-    value_counts = df[columnName].value_counts(normalize=True)
-    value_counts = value_counts.mul(100).round(2).astype(str) + '%'
-    value_counts.name = 'Percentage'
-
-    # combine counts and percentages into a dataframe
-    result = pd.concat([df[columnName].value_counts(), value_counts], axis=1)
-    result.columns = ['Counts', 'Percentage']
-    st.write(pd.DataFrame(result))
-    
-    return
-
-def createTable(df, columnName):  
-    st.write('Graduate Distribution by ' + columnName)
-    # get value counts and percentages of unique values in column 
-    value_counts = df[columnName].value_counts(normalize=True)
-    value_counts = value_counts.mul(100).round(2).astype(str) + '%'
-    value_counts.name = 'Percentage'
-
-    # combine counts and percentages into a dataframe
-    result = pd.concat([df[columnName].value_counts(), value_counts], axis=1)
-    result.columns = ['Counts', 'Percentage']
-    st.write(pd.DataFrame(result))
-    
-    return
-
-def twowayPlot(df, var1, var2):
-    fig = plt.figure(figsize =(10, 3))
-    p = sns.countplot(x=var1, data = df, hue=var2, palette='bright')
-    _ = plt.setp(p.get_xticklabels(), rotation=90) 
-    st.pyplot(fig)
-
 # Define the Streamlit app
 def app():
-    st.title("Welcome to the WVSU Employability Report 2017")      
+    st.title("Welcome to the WVSUCAT Dashboard")      
     st.subheader("(c) 2023 WVSU Management Information System")
                  
-    st.write("This dashboard is managed by: \nDr. Wilhelm P. Cerbo \nDirector, University Planning Office \updo@wvsu.edu.ph")
+    st.write("This dashboard is managed by: Dr. Mardy Ledesma \nUniversity Registrar\nregistrar@wvsu.edu.ph")
                  
-    st.write("The employability of university graduates can vary depending on a variety of factors, such as their field of study, their level of academic achievement, their relevant work experience, their soft skills, and the current state of the job market.")
+    st.write("WVSUCAT is the admission examination meant to screen the applicants and short-list them so that only eligible applicants may proceed to the next steps in the admission process.")
 
-    #create a dataframe
-    df = pd.DataFrame()
+    #load the data from file
+    df = loadcsvfile()
     
-    st.subheader("Employee Demographics")
-    campus = 'Main'
-    options = ['All', 'Main Campus', 'CAF Campus', 'Calinog Campus', 'Himamaylan Campus', 'Janiuay Campus', 'Lambunao Campus', 'Pototan Campus', 'WVSU Medical Center']
-    
-    selected_option = st.selectbox('Select the campus', options)
-    if selected_option=='All':
-        campus = selected_option
-        df = loadcsvfile(campus)
+    st.subheader("Licensure Examination Results")
+    year = '2018'
+    options = df['Year'].unique()
+    selected_option = st.selectbox('Select the year', options)
+    if selected_option=='2018':
+        year = selected_option
+        df = filterByYear(df, year)
     else:
-        campus = selected_option
-        df = loadcsvfile(campus)
-        df = filterBy(df, campus)
+        year = selected_option
+        df = filterByYear(df, year)
         
-    df['Age Bracket'] = df.apply(lambda x : getAgeBracket(x['Age']), axis=1)
-    df['Years in Service Bracket'] = df.apply(lambda x : getServiceBracket(x['Years of Service']), axis=1)
-
-    if st.button('Distribution By Gender'):
-        df = filterBy(df, campus)
-        createPlots(df, 'Gender')
-
-    if st.button('Distribution By Employee Type'):
-        df = filterBy(df, campus)  
-        createPlots(df, 'Type')
+    # Add the college column to the dataset
+    df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
+    df_colleges
     
-    if st.button('Distribution By Employment Status'):
-        df = filterBy(df, campus)  
-        createPlots(df, 'Employment Status')
-
-    if st.button('Distribution By Age Bracket'):
-        df = filterBy(df, campus)  
-        createPlots(df, 'Age Bracket')
-        
-    if st.button('Distribution By Years in Service Bracket'):
-        df = filterBy(df, campus)  
-        createPlots(df, 'Years in Service Bracket')
-
-    if st.button('Distribution By Position'):
-        df = filterBy(df, campus)  
-        createTable(df, 'Position')
+    #create the college column by merging the college courselist
+    merged = pd.merge(df, df_colleges, on='First Priority', how='left')
+    # create new column in dataframe1 
+    df['College'] = merged['College']
     
-    if st.button('Distribution By Gender across Age Brackets'):
-        df = filterBy(df, campus)  
-        twowayPlot(df, 'Age Bracket', 'Gender')
+    #This section will filter by college
+    college = 'All'
+    options = []
+    for college in list(df['College'].unique()):
+        options.append(college)
         
-    if st.button('Distribution By Gender across Employment Status'):
-        df = filterBy(df, campus)  
-        twowayPlot(df, 'Employment Status', 'Gender')
+    selected_option = st.selectbox('Select the college', options)
+    if selected_option=='CAS':
+        #filter again in case the user started over
+        df = filterByYear(df, year)
+    else:
+        college = selected_option
+        df = filterByCollege(df, college)
+     
+    options = ['All']
+    for course in list(df['Course'].unique()):
+        options.append(course)
+        
+    selected_option = st.selectbox('Select the course', options)
+    if selected_option=='All':
+        #filter again in case the user started over
+        df = filterByCollege(df, college)
+    else:
+        course = selected_option
+        df = filterByCourse(df, course)
+    
+    if st.button('Show Licensure Exam Report'):  
+        for course in df['Course'].unique()
+            show_result(df, course)
         
 #run the app
 if __name__ == "__main__":
