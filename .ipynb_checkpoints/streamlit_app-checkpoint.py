@@ -26,7 +26,7 @@ def filterByYear(df, year):
     filtered_df = df[df['Year'] == year]  
     return filtered_df
 
-def show_result(df, course):
+def show_result(df, course, passing_score):
     # add a hew column Eligible/Not Eligible
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if x >= passing_score else 'Not Eligible')
@@ -109,10 +109,11 @@ def app():
     else:
         course = selected_option
         df = filterByCourse(df, course)
-    
+        
+    passing_score = st.slider("Passing Score", 50, 160, 80)
     if st.button('Show Licensure Exam Report'):  
         for course in df['First Priority'].unique():
-            show_result(df, course)
+            show_result(df, course, passing_score)
         
 #run the app
 if __name__ == "__main__":
