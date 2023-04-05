@@ -100,7 +100,6 @@ def app():
 
     #load the data from file
     df = loadcsvfile()
-    df_copy = df
     
     st.subheader("WVSUCAT Examination Results")
     year = '2018'
@@ -121,6 +120,9 @@ def app():
     # create new column in dataframe1 
     df['College'] = merged['College']
     
+    #save a copy of the unfiltered dataframe
+    df_copy = df
+        
     #This section will filter by college
     college = 'All'
     options = []
