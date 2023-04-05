@@ -12,7 +12,7 @@ def filterByCourse(df, course):
     if course=='All':
         return df
     else:  
-        filtered_df = df[df['Course'] == course]  
+        filtered_df = df[df['First Priority'] == course]  
         return filtered_df
 
 def filterByCollege(df, campus):
