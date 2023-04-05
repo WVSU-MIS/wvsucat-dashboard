@@ -63,7 +63,7 @@ def show_summary(df, college, passing_score):
     st.write(res)
     st.write(pd.DataFrame(result))
     
-    for course in df['First Priority'].unique:
+    for course in df['First Priority'].unique():
         #filter the dataframe on the first priority
         df1 = df[df['First Priority'] == course]
 
