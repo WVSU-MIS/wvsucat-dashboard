@@ -111,7 +111,7 @@ def app():
         df = filterByCourse(df, course)
     
     if st.button('Show Licensure Exam Report'):  
-        for course in df['Course'].unique()
+        for course in df['Course'].unique():
             show_result(df, course)
         
 #run the app
