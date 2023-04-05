@@ -55,7 +55,7 @@ def show_summary(df, college, passing_score):
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
     result = pd.concat([course_counts, course_perc], axis=1)
     result.columns = ['frequency', 'percentage']
-    res = 'Result for the college: ' + college
+    res = 'For the college: ' + college
     st.write(res)
     st.write(pd.DataFrame(result))
     
