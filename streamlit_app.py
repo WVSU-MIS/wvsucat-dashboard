@@ -34,6 +34,7 @@ def show_result(df, course, passing_score):
     
     #filter the dataframe on the first priority
     df1 = df[df['First Priority'] == course]
+    
     # get value counts and percentages of unique values in the column 
     value_counts = df1['Result'].value_counts(normalize=True)
     value_counts = value_counts.mul(100).round(2).astype(str) + '%'
@@ -157,7 +158,7 @@ def app():
     
     if st.button('Show College Summary'):  
         df = filterByCollege(df_copy, college)
-        show_summary(df, course, passing_score)
+        show_summary(df, college, passing_score)
 
 #run the app
 if __name__ == "__main__":
