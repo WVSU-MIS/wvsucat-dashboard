@@ -98,7 +98,7 @@ def app():
         df = filterByCollege(df, college)
      
     options = ['All']
-    for course in list(df['Course'].unique()):
+    for course in list(df['First Priority'].unique()):
         options.append(course)
         
     selected_option = st.selectbox('Select the course', options)
