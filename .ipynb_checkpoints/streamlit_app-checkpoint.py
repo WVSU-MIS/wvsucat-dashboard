@@ -31,21 +31,20 @@ def show_result(df, course, passing_score):
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')
     
-    for course in df['First Priority'].unique():
-        #filter the dataframe on the first priority
-        df1 = df[df['First Priority'] == course]
+    #filter the dataframe on the first priority
+    df1 = df[df['First Priority'] == course]
 
-        # get value counts and percentages of unique values in the column 
-        value_counts = df1['Result'].value_counts(normalize=True)
-        value_counts = value_counts.mul(100).round(2).astype(str) + '%'
-        value_counts.name = 'Percentage'
+    # get value counts and percentages of unique values in the column 
+    value_counts = df1['Result'].value_counts(normalize=True)
+    value_counts = value_counts.mul(100).round(2).astype(str) + '%'
+    value_counts.name = 'Percentage'
 
-        # combine counts and percentages into a dataframe
-        result = pd.concat([df1['Result'].value_counts(), value_counts], axis=1)
-        result.columns = ['Counts', 'Percentage']
-        print('\n\n\nResult for the course ' + course)
-        result = pd.DataFrame(result)
-        print(result)
+    # combine counts and percentages into a dataframe
+    result = pd.concat([df1['Result'].value_counts(), value_counts], axis=1)
+    result.columns = ['Counts', 'Percentage']
+    print('\n\n\nResult for the course ' + course)
+    pd.DataFrame(result)
+
 
 def loadcsvfile():
     csvfile = 'wvsucat.csv'
@@ -113,7 +112,6 @@ def app():
     passing_score = st.slider("Passing Score", 50, 160, 80)
     if st.button('Show Licensure Exam Report'):  
         for course in df['First Priority'].unique():
-            st.write(course)
             show_result(df, course, passing_score)
         
 #run the app
