@@ -34,7 +34,6 @@ def show_result(df, course, passing_score):
     
     #filter the dataframe on the first priority
     df1 = df[df['First Priority'] == course]
-    df1
     # get value counts and percentages of unique values in the column 
     value_counts = df1['Result'].value_counts(normalize=True)
     value_counts = value_counts.mul(100).round(2).astype(str) + '%'
@@ -44,7 +43,7 @@ def show_result(df, course, passing_score):
     result = pd.concat([df1['Result'].value_counts(), value_counts], axis=1)
     result.columns = ['Counts', 'Percentage']
     print('\n\n\nResult for the course ' + course)
-    pd.DataFrame(result)
+    st.write(pd.DataFrame(result))
 
 
 def loadcsvfile():
