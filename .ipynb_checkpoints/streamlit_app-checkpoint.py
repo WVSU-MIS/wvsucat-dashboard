@@ -114,7 +114,7 @@ def app():
     max_values = df.max()
 
     # print the results
-    s.write("Mean values:")
+    st.write("Mean values:")
     mean_values['Score']
     st.write("\nMin values:")
     min_values['Score']
