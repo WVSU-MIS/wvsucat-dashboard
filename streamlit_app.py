@@ -114,12 +114,12 @@ def app():
     max_values = df.max()
 
     # print the results
-    print("Mean values:")
-    mean_values
-    print("\nMin values:")
-    min_values
-    print("\nMax values:")
-    max_values
+    s.write("Mean values:")
+    mean_values['Score']
+    st.write("\nMin values:")
+    min_values['Score']
+    st.write("\nMax values:")
+    max_values['Score']
 
     st.write("Set the passing score")
     
