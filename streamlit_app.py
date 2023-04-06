@@ -45,6 +45,8 @@ def show_result(df, course, passing_score):
     plot_result(df1, course)
 
 def show_summary(df, college, passing_score):
+    
+
         
     st.write('Distribution of Applicants by Priority Course')    
     course_counts = df['First Priority'].value_counts()
@@ -116,21 +118,19 @@ def app():
     st.write("Set the passing score")
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
+    
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
-    
-    # add a hew column Eligible/Not Eligible
-    # If the value in score is equal to or greater than tha passing_score
-    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')    
-    
+        
     #create the college column by merging the college courselist
     merged = pd.merge(df, df_colleges, on='First Priority', how='left')
     # create new column in dataframe1 
     df['College'] = merged['College']
     
-    #save a copy of the unfiltered dataframe
-    df_copy = df
-        
+    # add a hew column Eligible/Not Eligible
+    # If the value in score is equal to or greater than tha passing_score
+    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
+    
     #This section will filter by college
     college = 'All'
     options = []
@@ -138,10 +138,8 @@ def app():
         options.append(college)
         
     selected_option = st.selectbox('Select the college', options)
-    if selected_option=='CAS':
-        #filter again in case the user started over
-        college = selected_option
-        df = filterByCollege(df, college)
+    if selected_option=='All':
+        # do not filter 
     else:
         college = selected_option
         df = filterByCollege(df, college)
