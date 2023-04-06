@@ -108,8 +108,19 @@ def app():
     st.write(pd.DataFrame(df.describe().T))
     
     df['Score'] = df['Score'].astype(int)
-    st.write(pd.DataFrame(df.head(20)))
-    
+ # calculate the mean, min, and max values of each column
+    mean_values = df.mean()
+    min_values = df.min()
+    max_values = df.max()
+
+    # print the results
+    print("Mean values:")
+    mean_values
+    print("\nMin values:")
+    min_values
+    print("\nMax values:")
+    max_values
+
     st.write("Set the passing score")
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
