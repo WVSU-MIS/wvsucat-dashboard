@@ -112,9 +112,6 @@ def app():
     mean_values = df.mean()
     min_values = df.min()
     max_values = df.max()
-
-    # print the results
-    
     
     info = { 'Metric': ['Average Score', 'Lowest Score', 'Highest score:'], 
               'Score': [ round(mean_values['Score'], 0), min_values['Score'], max_values['Score']]}
@@ -154,7 +151,6 @@ def app():
         options.append(course)
     
     if st.button('Show College Summary'):  
-        df = filterByCollege(df_copy, college)
         show_summary(df, college, passing_score)
         
     #Select the course
