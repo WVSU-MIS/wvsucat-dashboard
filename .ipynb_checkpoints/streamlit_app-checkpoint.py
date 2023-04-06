@@ -144,7 +144,7 @@ def app():
     if selected_option=='CAS':
         #filter again in case the user started over
         college = selected_option
-        df = filterByYear(df, year)
+        df = filterByCollege(df, college)
     else:
         college = selected_option
         df = filterByCollege(df, college)
