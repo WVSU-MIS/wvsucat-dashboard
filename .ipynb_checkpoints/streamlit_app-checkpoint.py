@@ -114,11 +114,12 @@ def app():
     max_values = df.max()
 
     # print the results
-    info = [['Average Score', str(mean_values['Score'])],
-            ['Lowest score:', str(min_values['Score'])],
-            ['Highest score: ', str(max_values['Score'])]]
+    
+    
+    info = { ['Metric' : ['Average Score', 'Lowest Score', 'Highest score:'], 
+              'Score' : [ mean_values['Score']), str(min_values['Score']), str(max_values['Score'])]}
     st.write(pd.DataFrame(info))
-
+              
     st.write("Set the passing score")
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
