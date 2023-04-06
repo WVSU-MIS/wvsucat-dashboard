@@ -27,11 +27,7 @@ def filterByYear(df, year):
     return filtered_df
 
 def show_result(df, course, passing_score):
-    
-    # add a hew column Eligible/Not Eligible
-    # If the value in score is equal to or greater than tha passing_score
-    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')
-    
+        
     #filter the dataframe on the first priority
     df1 = df[df['First Priority'] == course]
     
@@ -122,6 +118,10 @@ def app():
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
+    
+    # add a hew column Eligible/Not Eligible
+    # If the value in score is equal to or greater than tha passing_score
+    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible')    
     
     #create the college column by merging the college courselist
     merged = pd.merge(df, df_colleges, on='First Priority', how='left')
