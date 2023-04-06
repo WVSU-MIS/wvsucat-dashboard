@@ -105,7 +105,8 @@ def app():
         df = filterByYear(df, year)
     
     st.write("Summary info for the year: " + str(year))
-    st.write(pd.DataFrame(df.info()))
+    st.write(pd.DataFrame(df.describe().T))
+    
     st.write("Set the passing score")
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
