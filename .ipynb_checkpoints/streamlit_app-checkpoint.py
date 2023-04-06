@@ -117,7 +117,7 @@ def app():
     
     
     info = { 'Metric': ['Average Score', 'Lowest Score', 'Highest score:'], 
-              'Score': [ round(str(mean_values['Score']), 0), str(min_values['Score']), str(max_values['Score'])]}
+              'Score': [ round(mean_values['Score'], 0), min_values['Score'], max_values['Score']]}
     st.write(pd.DataFrame(info))
               
     st.write("Set the passing score")
