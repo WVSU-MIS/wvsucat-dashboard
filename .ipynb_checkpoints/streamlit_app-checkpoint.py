@@ -108,7 +108,7 @@ def app():
     st.write(pd.DataFrame(df.describe().T))
     
     df['Score'] = df['Score'].astype(int)
-    st.write(pd.DataFrame(df.info()))
+    st.write(pd.DataFrame(df.head(20)))
     
     st.write("Set the passing score")
     
