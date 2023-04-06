@@ -107,7 +107,7 @@ def app():
     st.write("Summary info for the year: " + str(year))
     st.write(pd.DataFrame(df.describe().T))
     
-    df['Score'] df['Score'].astype(int)
+    df['Score'] = df['Score'].astype(int)
     st.write(pd.DataFrame(df.info()))
     
     st.write("Set the passing score")
