@@ -108,15 +108,16 @@ def app():
     st.write(pd.DataFrame(df.describe().T))
     
     df['Score'] = df['Score'].astype(int)
- # calculate the mean, min, and max values of each column
+    # calculate the mean, min, and max values of each column
     mean_values = df.mean()
     min_values = df.min()
     max_values = df.max()
 
     # print the results
-    st.write("Average Score: " + str(mean_values['Score']))
-    st.write("Lowest score: " + str(min_values['Score']))
-    st.write("Highest score: " + str(max_values['Score']))
+    info = [['Average Score', str(mean_values['Score'])],
+            ['Lowest score:', str(min_values['Score'])],
+            ['Highest score: ', str(max_values['Score'])]]
+    st.write(pd.DataFrame(info))
 
     st.write("Set the passing score")
     
