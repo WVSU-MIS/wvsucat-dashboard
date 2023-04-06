@@ -138,18 +138,18 @@ def app():
         options.append(college)
         
     selected_option = st.selectbox('Select the college', options)
-    if selected_option=='All':
-        # do not filter 
-    else:
+    if selected_option != 'All':
         college = selected_option
         df = filterByCollege(df, college)
+        
+    if st.button('Show College Summary'):  
+        show_summary(df, college, passing_score)
      
     options = ['All']
     for course in list(df['First Priority'].unique()):
         options.append(course)
     
-    if st.button('Show College Summary'):  
-        show_summary(df, college, passing_score)
+
         
     #Select the course
     selected_option = st.selectbox('Select the course', options)
