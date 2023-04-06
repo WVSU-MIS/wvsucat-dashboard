@@ -107,6 +107,9 @@ def app():
     st.write("Summary info for the year: " + str(year))
     st.write(pd.DataFrame(df.describe().T))
     
+    df['Score'] df['Score'].astype(int)
+    st.write(pd.DataFrame(df.info()))
+    
     st.write("Set the passing score")
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
