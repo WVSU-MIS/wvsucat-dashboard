@@ -45,8 +45,6 @@ def show_result(df, course, passing_score):
     plot_result(df1, course)
 
 def show_summary(df, college, passing_score):
-    
-
         
     st.write('Distribution of Applicants by Priority Course')    
     course_counts = df['First Priority'].value_counts()
@@ -127,12 +125,12 @@ def app():
     # create new column in dataframe1 
     df['College'] = merged['College']
     
-    # add a hew column Eligible/Not Eligible
+    # add a new column Eligible/Not Eligible
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
     
     #This section will filter by college
-    college = 'All'
+    college = 'CAS'
     options = []
     for college in list(df['College'].unique()):
         options.append(college)
