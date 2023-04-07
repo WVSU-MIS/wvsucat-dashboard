@@ -54,16 +54,17 @@ def show_summary(df, college, passing_score):
     #select only the needed columns
     df_courses = df.loc[:, ['First Priority', 'Slots']]
     df_courses = df_courses.drop_duplicates()
-    
-    df_courses
-    
-    
-    
+        
     course_counts = df['First Priority'].value_counts()
+    course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
     df_courses['Number of Applicants'] = list(course_counts)
+    df_courses['Percent of College Applicants'] list(course_perc)
+    
     st.write(df_courses)
     
-    course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
+    
+    
+    
     result = pd.concat([course_counts, course_perc], axis=1)
     result.columns = ['Total Applicants', 'percentage']
     
