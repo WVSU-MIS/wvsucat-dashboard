@@ -50,8 +50,12 @@ def show_result(df, course, passing_score):
 def show_summary(df, college, passing_score):
         
     st.write('Distribution of Applicants by Priority Course')
-    course_slots = df['Slots'].unique()
-    st.write(course_slots)
+    
+    slots = []
+    for course in df['First Priority'].unique():
+        slots.append(df['Slots'])
+    
+    st.write(slots)
     
     course_counts = df['First Priority'].value_counts()
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
