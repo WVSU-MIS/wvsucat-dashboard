@@ -51,7 +51,8 @@ def show_summary(df, college, passing_score):
         
     st.write('Distribution of Applicants by Priority Course')
     
-    df_courses = df.loc[:, 'First Priority', 'Slots']
+    #select only the needed columns
+    df_courses = df.loc[:, ['First Priority', 'Slots']]
     df_courses = df_courses.drop_duplicates()
     
     df_courses
