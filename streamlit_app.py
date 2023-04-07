@@ -119,7 +119,7 @@ def app():
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
     df = pd.DataFrame(df)
-    df
+
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
     #create the college column by merging the college courselist
@@ -127,8 +127,6 @@ def app():
     
     # create new column in dataframe1 
     df['College'] = merged['College']
-    
-    df
     
     #This section will filter by college
     college = 'CAS'
