@@ -117,6 +117,17 @@ def app():
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
     
+    #This section will filter by college
+    college = 'CAS'
+    options = []
+    for college in list(df['College'].unique()):
+        options.append(college)
+        
+    selected_option = st.selectbox('Select the college', options)
+    if selected_option != 'All':
+        college = selected_option
+        df = filterByCollege(df, college)
+
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
         
@@ -129,17 +140,8 @@ def app():
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
     
-    #This section will filter by college
-    college = 'CAS'
-    options = []
-    for college in list(df['College'].unique()):
-        options.append(college)
-        
-    selected_option = st.selectbox('Select the college', options)
-    if selected_option != 'All':
-        college = selected_option
-        df = filterByCollege(df, college)
-        
+    df.to_csv('cat_score.csv')
+
     if st.button('Show College Summary'):  
         show_summary(df, college, passing_score)
      
