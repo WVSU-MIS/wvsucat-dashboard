@@ -58,7 +58,7 @@ def show_summary(df, college, passing_score):
     course_counts = df['First Priority'].value_counts()
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
     df_courses['Applicants'] = list(course_counts)
-    df_courses['Share of College Applicants (%)'] = list(course_perc)
+    df_courses['Share of College \nApplicants (%)'] = list(course_perc)
     df_courses['Applicant to Slots Ratio'] = df_courses['Applicants'] / df_courses['Slots']                                                 
     def getPopularity(ratio):
         if ( ratio > 4.0 ):
@@ -76,18 +76,6 @@ def show_summary(df, college, passing_score):
     
     st.dataframe(df_courses.reset_index(drop=True), use_container_width=False)
 
-    
-    
-    result = pd.concat([course_counts, course_perc], axis=1)
-    result.columns = ['Total Applicants', 'percentage']
-    
-    
-    st.write(tab_title)
-    tab1 = pd.DataFrame(result)
-    st.write(tab1)
-    
-    
-    
 def plot_result(df1, course):
     scounts=df1['Result'].value_counts()
     labels = list(scounts.index)
