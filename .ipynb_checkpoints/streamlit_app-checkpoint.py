@@ -57,7 +57,12 @@ def show_summary(df, college, passing_score):
     
     df_courses
     
+    
+    
     course_counts = df['First Priority'].value_counts()
+    
+    st.write(course_counts)
+    
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
     result = pd.concat([course_counts, course_perc], axis=1)
     result.columns = ['Total Applicants', 'percentage']
