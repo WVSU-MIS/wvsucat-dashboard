@@ -48,8 +48,8 @@ def show_result(df, course, passing_score):
     plot_result(df1, course)
 
 def show_summary(df, college, passing_score):
-        
-    st.write('Distribution of Applicants by Priority Course')
+    tab_title = 'Distribution of Applicants by Priority Course For the college: ' + college
+    st.write(tab_title)
     
     #select only the needed columns
     df_courses = df.loc[:, ['First Priority', 'Slots']]
@@ -60,6 +60,19 @@ def show_summary(df, college, passing_score):
     df_courses['Applicants'] = list(course_counts)
     df_courses['Share of College Applicants (%)'] = list(course_perc)
     df_courses['Applicant to Slots Ratio'] = df_courses['Applicants'] / df_courses['Slots']                                                 
+    def getPopularity(ratio):
+        if ( ratio > 4.0 ):
+            return 'very high'
+        if ( ratio > 3.0 ):
+            return 'high'
+        if ( ratio > 2.0 ):
+            return 'moderate'
+        if ( ratio > 1.0):
+            return 'low'
+        else: 
+            return 'very low'
+    
+    df['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
     
     st.write(df_courses)
     
@@ -69,7 +82,7 @@ def show_summary(df, college, passing_score):
     result = pd.concat([course_counts, course_perc], axis=1)
     result.columns = ['Total Applicants', 'percentage']
     
-    tab_title = 'For the college: ' + college
+    
     st.write(tab_title)
     tab1 = pd.DataFrame(result)
     st.write(tab1)
