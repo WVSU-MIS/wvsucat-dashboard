@@ -125,6 +125,8 @@ def app():
     # create new column in dataframe1 
     df['College'] = merged['College']
     
+    df
+    
     #This section will filter by college
     college = 'CAS'
     options = []
@@ -139,8 +141,6 @@ def app():
     # add a new column Eligible/Not Eligible
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
-    
-    df
 
     if st.button('Show College Summary'):  
         show_summary(df, college, passing_score)
