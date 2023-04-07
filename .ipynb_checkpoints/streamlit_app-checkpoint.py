@@ -140,7 +140,7 @@ def app():
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
     
-    df.to_csv('cat_score.csv')
+    df
 
     if st.button('Show College Summary'):  
         show_summary(df, college, passing_score)
