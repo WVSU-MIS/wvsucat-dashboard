@@ -49,14 +49,20 @@ def show_result(df, course, passing_score):
 
 def show_summary(df, college, passing_score):
         
-    st.write('Distribution of Applicants by Priority Course')    
+    st.write('Distribution of Applicants by Priority Course')
+    course_slots = df['Slots'].unique()
     course_counts = df['First Priority'].value_counts()
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
-    result = pd.concat([course_counts, course_perc], axis=1)
-    result.columns = ['frequency', 'percentage']
-    res = 'For the college: ' + college
-    st.write(res)
-    st.write(pd.DataFrame(result))
+    result = pd.concat([course_counts, course_perc, course_slots], axis=1)
+    result.columns = ['Total Applicants', 'percentage', 'Slots']
+    
+    tab_title = 'For the college: ' + college
+    st.write(tab_title)
+    tab['Slots']
+    tab1 = pd.DataFrame(result)
+    st.write(tab1)
+    
+    
     
 def plot_result(df1, course):
     scounts=df1['Result'].value_counts()
