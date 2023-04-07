@@ -72,7 +72,7 @@ def show_summary(df, college, passing_score):
         else: 
             return 'very low'
     
-    df['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
+    df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
     
     st.write(df_courses)
     
