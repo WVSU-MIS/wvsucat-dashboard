@@ -5,9 +5,9 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import LabelEncoder
+#rom sklearn.preprocessing import LabelEncoder
 from PIL import Image
-from statistics import mode
+
 
 def filterByCourse(df, course):
     if course=='All':
@@ -105,7 +105,7 @@ def app():
     
     st.write("Summary info for the year: " + str(year))
     st.write(pd.DataFrame(df.describe().T))
-    
+    from statistics import mode
     df['Score'] = df['Score'].astype(int)
     # calculate the mean, min, and max values of column Score
     mean_values = df['Score'].mean()
