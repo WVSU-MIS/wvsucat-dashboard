@@ -141,7 +141,7 @@ def app():
     median_values = df['Score'].median()
     mode_values = mode(df['Score'])
     
-    info = { 'Metric of Score': ['Average', 'Lowest', 'Highest', 'Median', 'Mode'], 
+    info = { 'Measure': ['Average', 'Lowest', 'Highest', 'Median', 'Mode'], 
               'Score': [ round(mean_values, 0), min_values, max_values, median_values, mode_values]}
     st.write(pd.DataFrame(info))
               
