@@ -117,6 +117,11 @@ def app():
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
     
+    #create the college column by merging the college courselist
+    merged = pd.merge(df, df_colleges, on='First Priority', how='left')
+    # create new column in dataframe1 
+    df['College'] = merged['College']
+    
     #This section will filter by college
     college = 'CAS'
     options = []
@@ -130,11 +135,6 @@ def app():
 
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
-        
-    #create the college column by merging the college courselist
-    merged = pd.merge(df, df_colleges, on='First Priority', how='left')
-    # create new column in dataframe1 
-    df['College'] = merged['College']
     
     # add a new column Eligible/Not Eligible
     # If the value in score is equal to or greater than tha passing_score
