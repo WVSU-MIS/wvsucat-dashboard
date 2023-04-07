@@ -133,6 +133,9 @@ def app():
     
     # create new column in dataframe1 
     df['College'] = merged['College']
+    df['Slots'] = merged['Slots']
+    
+    df
     
     #This section will filter by college
     college = 'CAS'
