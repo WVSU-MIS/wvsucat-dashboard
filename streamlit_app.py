@@ -106,8 +106,8 @@ def app():
     st.write("Summary info for the year: " + str(year))
     st.write(pd.DataFrame(df.describe().T))
     from statistics import mode
-    from statistics import mean
-    from statistics import median
+    #from statistics import mean
+    #from statistics import median
     
     df['Score'] = df['Score'].astype(int)
     # calculate the mean, min, and max values of column Score
@@ -134,8 +134,6 @@ def app():
     # create new column in dataframe1 
     df['College'] = merged['College']
     df['Slots'] = merged['Slots']
-    
-    df
     
     #This section will filter by college
     college = 'CAS'
