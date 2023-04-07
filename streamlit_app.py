@@ -25,6 +25,7 @@ def filterByCollege(df, college):
 def filterByYear(df, year): 
     filtered_df = df[df['Year'] == year]
     new_df = pd.DataFrame(filtered_df)
+    new_df = new_df.copy().reset_index(drop=True)
     return new_df
 
 def show_result(df, course, passing_score):
