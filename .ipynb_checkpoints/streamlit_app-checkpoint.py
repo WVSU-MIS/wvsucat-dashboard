@@ -74,7 +74,8 @@ def show_summary(df, college, passing_score):
     
     df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
     
-    st.write(df_courses)
+    st.dataframe(df_courses.reset_index(drop=True), index=False)
+
     
     
     
