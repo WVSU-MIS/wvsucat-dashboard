@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 from PIL import Image
+from statistics import mode
 
 def filterByCourse(df, course):
     if course=='All':
