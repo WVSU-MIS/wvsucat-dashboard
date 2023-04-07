@@ -106,6 +106,9 @@ def app():
     st.write("Summary info for the year: " + str(year))
     st.write(pd.DataFrame(df.describe().T))
     from statistics import mode
+    from statistics import mean
+    from statistics import median
+    
     df['Score'] = df['Score'].astype(int)
     # calculate the mean, min, and max values of column Score
     mean_values = df['Score'].mean()
