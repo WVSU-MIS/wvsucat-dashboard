@@ -74,10 +74,8 @@ def show_summary(df, college, passing_score):
     
     df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
     
-    st.dataframe(df_courses.reset_index(drop=True), index=False)
+    st.dataframe(df_courses.reset_index(drop=True), use_container_width=False)
 
-    
-    
     
     
     result = pd.concat([course_counts, course_perc], axis=1)
