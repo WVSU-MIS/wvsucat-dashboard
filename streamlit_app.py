@@ -51,11 +51,22 @@ def show_summary(df, college, passing_score):
         
     st.write('Distribution of Applicants by Priority Course')
     
-    slots = []
-    for course in df['First Priority'].unique():
-        slots.append(df['Slots'])
+    # Use groupby() to group the data by unique values in column A
+    grouped = df.groupby('First Priority')
+
+    # Define a function to select the values in column slots for each course
+    def select_course(group):
+        return group['Slots']
+
+    # Apply the function to each group and concatenate the results
+    result = pd.concat([select_course(group) for _, group in grouped], axis=1)
+
+    # Assign the column names to the result dataframe
+    result.columns = grouped.groups.keys()
+
+    # Print the result
+    st.write(result)
     
-    st.write(slots)
     
     course_counts = df['First Priority'].value_counts()
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
