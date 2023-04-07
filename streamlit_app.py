@@ -114,11 +114,11 @@ def app():
     mean_values = df['Score'].mean()
     min_values = df['Score'].min()
     max_values = df['Score'].max()
-    median = df['Score'].median()
-    mode = mode(df['Score'])
+    median_values = df['Score'].median()
+    mode_values = mode(df['Score'])
     
     info = { 'Metric of Score': ['Average', 'Lowest', 'Highest', 'Median', 'Mode'], 
-              'Score': [ round(mean, 0), min_values, max_values, median, mode]}
+              'Score': [ round(mean_values, 0), min_values, max_values, median_values, mode_values]}
     st.write(pd.DataFrame(info))
               
     st.write("Set the passing score")
