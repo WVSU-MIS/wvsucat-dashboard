@@ -53,8 +53,10 @@ def show_summary(df, college, passing_score):
     course_slots = df['Slots'].unique()
     course_counts = df['First Priority'].value_counts()
     course_perc = course_counts.apply(lambda x: (x / course_counts.sum()).round(2) * 100)
-    result = pd.concat([course_counts, course_perc, course_slots], axis=1)
-    result.columns = ['Total Applicants', 'percentage', 'Slots']
+    result = pd.concat([course_counts, course_perc], axis=1)
+    result.columns = ['Total Applicants', 'percentage']
+    
+    result = pd.concat([result, course_slots], axis=1)
     
     tab_title = 'For the college: ' + college
     st.write(tab_title)
