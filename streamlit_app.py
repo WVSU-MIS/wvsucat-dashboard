@@ -116,7 +116,7 @@ def app():
     st.write("Set the passing score")
     
     passing_score = st.slider("Passing Score", 50, 160, 80, 10)
-    
+    df = pd.DataFrame(df)
     df
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
