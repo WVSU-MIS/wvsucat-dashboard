@@ -75,6 +75,11 @@ def show_summary(df, college, passing_score):
     df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
     
     st.dataframe(df_courses.reset_index(drop=True), use_container_width=False)
+    st.write('Popularity Index \nless than 1.0 - very low \
+                               \n1.0 to 1.99 - low \
+                               \n2.0 to 2.99 - moderate \
+                               \n3.0 to 3.99 - high \
+                               \n4.0 and higher - very high')
 
 def plot_result(df1, course):
     scounts=df1['Result'].value_counts()
