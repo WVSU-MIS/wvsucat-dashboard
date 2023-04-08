@@ -129,7 +129,7 @@ def app():
         df = filterByYear(df, year)
     
     st.write("Summary info for the year: " + str(year))
-    dewc = pd.DataFrame(df.describe().T)
+    desc = pd.DataFrame(df.describe().T)
     st.dataframe(desc.reset_index(drop=True), use_container_width=True)
     
     from statistics import mode
