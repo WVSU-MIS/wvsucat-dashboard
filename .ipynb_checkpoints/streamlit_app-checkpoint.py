@@ -44,7 +44,8 @@ def show_result(df, course, passing_score):
     result.columns = ['Counts', 'Percentage']
     res = 'Result for the course: ' + course
     st.write(res)
-    st.write(pd.DataFrame(result))
+    result = pd.DataFrame(result)
+    st.dataframe(result.reset_index(drop=True), use_container_width=True)
     plot_result(df1, course)
 
 def show_summary(df, college, passing_score):
@@ -74,7 +75,7 @@ def show_summary(df, college, passing_score):
     
     df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
     
-    st.dataframe(df_courses.reset_index(drop=True), use_container_width=False)
+    st.dataframe(df_courses.reset_index(drop=True), use_container_width=True)
     st.write('Popularity Index Reference \
                                \n\tless than 1.0 - very low \
                                \n\t1.0 to 1.99 - low \
@@ -144,7 +145,8 @@ def app():
     info = { 'Measure': ['Average', 'Lowest', 'Highest', 'Median', 'Mode'], 
               'Score': [ round(mean_values, 0), min_values, max_values, median_values, mode_values]}
     st.write('Some statistics about the applicant scores for the selected year: lowest, highest, mean, stc.')
-    st.write(pd.DataFrame(info))
+    info = pd.DataFrame(info)
+    st.dataframe(info.reset_index(drop=True), use_container_width=True)
               
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
