@@ -129,7 +129,9 @@ def app():
         df = filterByYear(df, year)
     
     st.write("Summary info for the year: " + str(year))
-    st.write(pd.DataFrame(df.describe().T))
+    dewc = pd.DataFrame(df.describe().T)
+    st.dataframe(desc.reset_index(drop=True), use_container_width=True)
+    
     from statistics import mode
     #from statistics import mean
     #from statistics import median
@@ -146,7 +148,7 @@ def app():
               'Score': [ round(mean_values, 0), min_values, max_values, median_values, mode_values]}
     st.write('Some statistics about the applicant scores for the selected year: lowest, highest, mean, stc.')
     info = pd.DataFrame(info)
-    st.dataframe(info.reset_index(drop=True), use_container_width=True)
+    st.dataframe(info.reset_index(drop=True), use_container_width=False)
               
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
