@@ -166,10 +166,6 @@ def app():
         college = selected_option
         df = filterByCollege(df, college)
     
-    # add a new column Eligible/Not Eligible
-    # If the value in score is equal to or greater than tha passing_score
-    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
-
     if st.button('College Summary Report'):  
         show_summary(df, college, passing_score)
      
@@ -184,7 +180,9 @@ def app():
              
     st.write('Move the slider below to set the passing score')
     passing_score = st.slider('Passing Score', 50, 160, 80, 5)
-    
+    # add a new column Eligible/Not Eligible
+    # If the value in score is equal to or greater than tha passing_score
+    df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
     #df = pd.DataFrame(df)
         
     #Select the course
