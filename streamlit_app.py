@@ -175,8 +175,8 @@ def app():
     
     st.subheader('Passing Score')
     st.write('The passing score determine what number of students are marked as "eligible" \
-        to continue the admission to WVSU.  Students whose scores are below the \
-        passing socre are ineligible for admission to their selected course.')
+        to continue the admission process to WVSU.  Students whose scores are below the \
+        passing score are ineligible for admission to their selected course.')
              
     st.write('Move the slider below to set the passing score')
     passing_score = st.slider('Passing Score', 50, 160, 80, 5)
