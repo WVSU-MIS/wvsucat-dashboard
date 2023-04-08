@@ -184,7 +184,8 @@ def app():
              
     st.write('Move the slider below to set the passing score')
     passing_score = st.slider('Passing Score', 50, 160, 80, 5)
-    df = pd.DataFrame(df)
+    
+    #df = pd.DataFrame(df)
         
     #Select the course
     selected_option = st.selectbox('Select the course', options)
