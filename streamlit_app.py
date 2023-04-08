@@ -143,7 +143,7 @@ def app():
     
     info = { 'Measure': ['Average', 'Lowest', 'Highest', 'Median', 'Mode'], 
               'Score': [ round(mean_values, 0), min_values, max_values, median_values, mode_values]}
-    st.write('Some statistics about the applicant scores for the selected year: lowest, highest, mean, stc."
+    st.write('Some statistics about the applicant scores for the selected year: lowest, highest, mean, stc.")
     st.write(pd.DataFrame(info))
               
     # Add the college column to the dataset
