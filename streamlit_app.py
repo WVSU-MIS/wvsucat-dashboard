@@ -48,7 +48,7 @@ def show_result(df, course, passing_score):
     st.dataframe(result.reset_index(drop=True), use_container_width=True)
     plot_result(df1, course)
 
-def show_summary(df, college, passing_score):
+def show_summary(df, college):
     tab_title = 'Distribution of Applicants by Priority Course For the college: ' + college
     st.write(tab_title)
     
@@ -171,7 +171,7 @@ def app():
         df = filterByCollege(df, college)
     
     if st.button('College Summary Report'):  
-        show_summary(df, college, passing_score)
+        show_summary(df, college)
      
     options = ['All']
     for course in list(df['First Priority'].unique()):
