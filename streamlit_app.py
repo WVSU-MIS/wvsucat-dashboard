@@ -143,13 +143,9 @@ def app():
     
     info = { 'Measure': ['Average', 'Lowest', 'Highest', 'Median', 'Mode'], 
               'Score': [ round(mean_values, 0), min_values, max_values, median_values, mode_values]}
+    st.write('Some statistics about the applicant scores for the selected year: lowest, highest, mean, stc."
     st.write(pd.DataFrame(info))
               
-    st.write("Set the passing score")
-    
-    passing_score = st.slider("Passing Score", 50, 160, 80, 5)
-    df = pd.DataFrame(df)
-
     # Add the college column to the dataset
     df_colleges = pd.read_csv('courses.csv', header=0, sep = ",", encoding='latin')
     #create the college column by merging the college courselist
@@ -174,14 +170,21 @@ def app():
     # If the value in score is equal to or greater than tha passing_score
     df['Result'] = df['Score'].apply(lambda x: 'Eligible' if int(x) >= int(passing_score) else 'Not Eligible') 
 
-    if st.button('Show College Summary'):  
+    if st.button('College Summary Report'):  
         show_summary(df, college, passing_score)
      
     options = ['All']
     for course in list(df['First Priority'].unique()):
         options.append(course)
     
-
+    st.subheader('Passing Score')
+    st.write('The passing score determine what number of students are marked as "eligible" \
+        to continue the admission to WVSU.  Students whose scores are below the \
+        passing socre are ineligible for admission to their selected course.'
+             
+    st.write("Move the slider below to set the passing score")
+    passing_score = st.slider("Passing Score", 50, 160, 80, 5)
+    df = pd.DataFrame(df)
         
     #Select the course
     selected_option = st.selectbox('Select the course', options)
@@ -192,7 +195,7 @@ def app():
         course = selected_option
         df = filterByCourse(df, course)
         
-    if st.button('Show WVSUCAT Report'):  
+    if st.button('Per Course Report for the Selected College'):  
         for course in df['First Priority'].unique():
             show_result(df, course, passing_score)
 
