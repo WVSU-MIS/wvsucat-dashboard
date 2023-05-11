@@ -110,7 +110,7 @@ def app():
     st.title("Welcome to the WVSUCAT Dashboard")      
     st.subheader("(c) 2023 WVSU Management Information System")
                  
-    st.write("This dashboard is managed by: Dr. Mardy Ledesma \nUniversity Registrar\nregistrar@wvsu.edu.ph")
+    st.write("This dashboard is managed by: Mrs. Mardy Ledesma \nUniversity Registrar\nregistrar@wvsu.edu.ph")
                  
     st.write("WVSUCAT is the admission examination meant to screen the applicants and short-list them so that only eligible applicants may proceed to the next steps in the admission process.")
 
@@ -133,8 +133,6 @@ def app():
     st.dataframe(desc.reset_index(drop=True), use_container_width=True)
     
     from statistics import mode
-    #from statistics import mean
-    #from statistics import median
     
     df['Score'] = df['Score'].astype(int)
     # calculate the mean, min, and max values of column Score
