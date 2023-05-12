@@ -73,7 +73,7 @@ def show_summary(df, college):
         else: 
             return 'very low'
     
-    df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Slots Ratio']), axis=1)
+    df_courses['Popularity'] = df_courses.apply(lambda x : getPopularity(x['Applicant to Enrollment Slots Ratio']), axis=1)
     
     st.dataframe(df_courses.reset_index(drop=True), use_container_width=True)
     st.write('Popularity Index Reference \
@@ -117,7 +117,7 @@ def app():
     #load the data from file
     df = loadcsvfile()
     
-    st.subheader("WVSUCAT Examination Results")
+    st.subheader("WVSUCAT Examination Results of the Main Campus")
     year = '2018'
     options = df['Year'].unique()
     selected_option = st.selectbox('Select the year', options)
